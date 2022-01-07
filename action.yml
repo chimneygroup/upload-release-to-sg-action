@@ -1,0 +1,8 @@
+name: "Upload release to ShotGrid"
+description: "Upload zipped release to ShotGrid"
+runs:
+  using: "composite"
+  steps:
+    - name: "Upload to SG"
+      run: "python -m upload_to_sg.py"
+      shell: bash
