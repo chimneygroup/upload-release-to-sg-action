@@ -9,6 +9,6 @@ runs:
     - name: "Upload to SG"
       run: |
         import os
-        print(os.environ['PATH'])
+        print(os.environ['HOME'])
         print(os.environ["GITHUB_WORKSPACE"])
       shell: python
