@@ -11,4 +11,4 @@ runs:
         import os
         print(os.environ['PATH'])
         print(os.environ["GITHUB_WORKSPACE"])
-    shell: python
+      shell: python
