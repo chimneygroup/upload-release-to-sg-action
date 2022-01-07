@@ -3,6 +3,9 @@ description: "Upload zipped release to ShotGrid"
 runs:
   using: "composite"
   steps:
+    - name: "Pip install Shotgun API"
+      run: "python -m pip install git+git://github.com/shotgunsoftware/python-api.git"
+      shell: bash
     - name: "Upload to SG"
       run: "python -m upload_to_sg.py"
       shell: bash
