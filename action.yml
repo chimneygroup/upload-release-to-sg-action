@@ -11,9 +11,11 @@ runs:
         import os
         import shutil
         repo_path = os.environ["GITHUB_WORKSPACE"]
+        repo_name = os.environ["REPO_NAME"]
+        release_tag = os.environ["RELEASE_TAG"]
         output_path = os.path.join(
             os.environ["HOME"],
-            f"{os.environ["REPO_NAME"]}-{os.environ["RELEASE_TAG"]}",
+            f"{repo_name}-{release_tag}",
         )
 
         shutil.make_archive(output_path, "zip", repo_path)
@@ -22,9 +24,11 @@ runs:
     - name: "Upload to SG"
       run: |
         import os
+        repo_name = os.environ["REPO_NAME"]
+        release_tag = os.environ["RELEASE_TAG"]
         zip_path = os.path.join(
             os.environ["HOME"],
-            f"{os.environ["REPO_NAME"]}-{os.environ["RELEASE_TAG"]}.zip",
+            f"{repo_name}-{release_tag}.zip",
         )
         print(zip_path)
         print(os.path.exists(zip_path))
