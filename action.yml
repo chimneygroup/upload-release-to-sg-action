@@ -6,9 +6,22 @@ runs:
     - name: "Pip install Shotgun API"
       run: "python -m pip install git+git://github.com/shotgunsoftware/python-api.git"
       shell: bash
+    - name: "ZIP Repository"
+      run: |
+        import os
+        import shutil
+        repo_path = os.environ["GITHUB_WORKSPACE"]
+        output_path = os.path.join(
+            os.path.dirname(repo_path),
+            os.path.basename(repo_path),
+        )
+
+        zip_path = shutil.make_archive(output_path, "zip", repo_path)
+        os.environ["ZIPPED_REPO"] = zip_path
+      shell: python
     - name: "Upload to SG"
       run: |
         import os
-        print(os.environ['HOME'])
-        print(os.environ["GITHUB_WORKSPACE"])
+        print(os.environ['ZIPPED_REPO'])
+
       shell: python
