@@ -1,10 +1,10 @@
-name: "Upload release to ShotGrid"
+name: "Upload release to ShotGrid Action"
 description: "Upload zipped release to ShotGrid"
 runs:
   using: "composite"
   steps:
     - name: "Pip install Shotgun API"
-      run: "python -m pip install git+git://github.com/shotgunsoftware/python-api.git"
+      run: "python -m pip install git+https://github.com/shotgunsoftware/python-api.git@v3.3.2"
       shell: bash
     - name: "ZIP Repository"
       run: |
