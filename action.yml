@@ -33,7 +33,7 @@ runs:
         sg.upload(
             os.environ["SHOTGRID_ENTITY_TYPE"],
             os.environ["SHOTGRID_ENTITY_ID"],
-            "release.zip",
+            zip_path,
             "sg_uploaded_app",
         )
 
