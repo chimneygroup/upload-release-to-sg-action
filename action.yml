@@ -4,27 +4,11 @@ runs:
   using: "composite"
   steps:
     - name: "zip it"
-      run: zip -r release.zip . -x ".git/*" ".github/*"
+      run: zip -r release.zip . -x ".git/*" ".github/*" ".gitignore"
       shell: bash
     - name: "Pip install Shotgun API"
       run: "python -m pip install git+https://github.com/shotgunsoftware/python-api.git@v3.3.2"
       shell: bash
-    - name: "ZIP Repository"
-      run: |
-        import os
-        import shutil
-        print(os.listdir(os.environ["HOME"]))
-        repo_path = os.environ["GITHUB_WORKSPACE"]
-        repo_name = os.environ["REPO_NAME"]
-        release_tag = os.environ["RELEASE_TAG"]
-        output_path = os.path.join(
-            os.environ["HOME"],
-            f"{repo_name}-{release_tag}",
-        )
-
-        shutil.make_archive(output_path, "zip", repo_path)
-
-      shell: python
     - name: "Upload to SG"
       run: |
         import os
@@ -49,7 +33,7 @@ runs:
         sg.upload(
             os.environ["SHOTGRID_ENTITY_TYPE"],
             os.environ["SHOTGRID_ENTITY_ID"],
-            zip_path,
+            "release.zip",
             "sg_uploaded_app",
         )
 
