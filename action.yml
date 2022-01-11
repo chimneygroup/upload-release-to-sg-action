@@ -4,10 +4,10 @@ runs:
   using: "composite"
   steps:
     - name: "Copy files to new folder"
-      run: rsync -arv --exclude='.git/' --exclude='.github/' --exclude='.gitignore' . ./release
+      run: rsync -arv --exclude='.git/' --exclude='.github/' --exclude='.gitignore' . ./$REPO_NAME-$RELEASE_TAG
       shell: bash
     - name: "ZIP folder"
-      run: zip -r release.zip ./release
+      run: zip -r $REPO_NAME-$RELEASE_TAG.zip ./$REPO_NAME-$RELEASE_TAG
       shell: bash
     - name: "Pip install Shotgun API"
       run: "python -m pip install git+https://github.com/shotgunsoftware/python-api.git@v3.3.2"
@@ -20,10 +20,7 @@ runs:
         # Build path to zipped 
         repo_name = os.environ["REPO_NAME"]
         release_tag = os.environ["RELEASE_TAG"]
-        zip_path = os.path.join(
-            os.environ["HOME"],
-            f"{repo_name}-{release_tag}.zip",
-        )
+        zip_path = f"{repo_name}-{release_tag}.zip"
 
         # Create ShotGrid API Instance
         sg = Shotgun(
