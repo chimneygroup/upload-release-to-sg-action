@@ -30,11 +30,22 @@ runs:
         )
 
         # Upload zipped rerelease to ShotGrid
-        sg.upload(
+        uploaded_id = sg.upload(
             os.environ["SHOTGRID_ENTITY_TYPE"],
             os.environ["SHOTGRID_ENTITY_ID"],
             zip_path,
             "sg_uploaded_app",
+        )
+
+        # Update the uploaded file in SG with release info
+        sg.update(
+            "Attachment",
+            uploaded_id,
+            {
+                "sg_release_title": os.environ["RELEASE_NAME"],
+                "sg_release_notes": os.environ["RELEASE_BODY"],
+                "sg_release_tag": os.environ["RELEASE_TAG"],
+            },
         )
 
       shell: python
