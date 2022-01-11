@@ -13,6 +13,7 @@ runs:
       run: |
         import os
         import shutil
+        print(os.listdir(os.environ["HOME"]))
         repo_path = os.environ["GITHUB_WORKSPACE"]
         repo_name = os.environ["REPO_NAME"]
         release_tag = os.environ["RELEASE_TAG"]
